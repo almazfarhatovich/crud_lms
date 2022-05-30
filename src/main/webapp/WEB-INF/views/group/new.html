@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New group</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/group}" th:object="${groups}">
+    <label for="name">Enter groupName</label>
+    <input type="text" th:field="*{groupName}" id="name"/>
+    <br/>
+    <label for="start">Enter dateOfStart</label>
+    <input type="date" th:field="*{dateOfStart}" id="start"/>
+    <br/>
+    <label for="place">Enter dateOfFinish</label>
+    <input type="date" th:field="*{dateOfFinish}" id="place"/>
+    <br/>
+    <input type="submit" value="SAVE"/>
+</form>
+</body>
+</html>

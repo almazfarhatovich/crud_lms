@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find by name</title>
+</head>
+<body>
+
+<p th:text="${students.firstName}">VALUE</p>
+<p th:text="${students.lastName}">VALUE</p>
+<p th:text="${students.email}">VALUE</p>
+<p th:text="${students.studyFormat}">VALUE</p>
+<a th:href="@{/student/{id}/edit(id=${students.getId()})}">Edit</a>
+<form th:method="DELETE" th:action="@{/student/{id}(id=${students.getId()})}">
+    <input type="submit" value="DELETE"/>
+</form>
+</body>
+</html>
