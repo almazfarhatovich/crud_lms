@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>All companies</title>
+    <style>
+        #1 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+        body {
+            background: url(https://otvet.imgsmail.ru/download/79384009_10680a39f7d664976867150d7b78210e.jpg);
+            width: inherit;
+        }
+    </style>
 </head>
 <body>
+<h1 id="1">Company page</h1>
 <div th:each="company : ${companies}">
     <a th:href="@{/company/{id}(id=${company.getId()})}"
        th:text="${company.getCompanyName() + ', '+ company.getLocatedCountry()}">user</a>
@@ -12,5 +23,13 @@
 <br/>
 <hr/>
 <a href="/company/new">Create new company</a>
+<br/>
+<a href="/course">Courses</a>
+<br/>
+<a href="/group">Groups</a>
+<br/>
+<a href="/teacher">Teachers</a>
+<br/>
+<a href="/student">Students</a>
 </body>
 </html>
