@@ -4,11 +4,10 @@ import almaz.configurations.Config;
 import almaz.models.Course;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Component
+@Repository
 public class CourseRepository implements AutoCloseable{
     private final EntityManagerFactory entityManagerFactory = Config.createEntityManagerFactory();
 

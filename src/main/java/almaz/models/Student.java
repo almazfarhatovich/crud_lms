@@ -28,7 +28,9 @@ public class Student {
     private String email;
     private String lastName;
     private StudyFormat studyFormat;
-    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @Transient
+    private Long groupId;
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Group group;
     public Student(String firstName, String email, String lastName, StudyFormat studyFormat) {
         this.firstName = firstName;

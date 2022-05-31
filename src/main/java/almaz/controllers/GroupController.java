@@ -1,6 +1,6 @@
 package almaz.controllers;
 import almaz.models.Group;
-import almaz.repositories.GroupRepository;
+import almaz.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/group")
 public class GroupController {
 
-    private final GroupRepository groupRepository;
+    private final GroupService groupService;
 
     @Autowired
-    public GroupController(GroupRepository groupRepository) {
-        this.groupRepository = groupRepository;
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
     }
 
     @GetMapping("/new")
@@ -24,37 +24,37 @@ public class GroupController {
 
     @PostMapping()
     public String createGroup(@ModelAttribute("groups") Group group) {
-        groupRepository.saveGroup(group);
+        groupService.saveGroup(group);
         return "redirect:/group";
     }
     @GetMapping()
     public String getAll(Model model) {
-        model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("groups", groupService.findAll());
         return "group/getAll";
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("groups", groupRepository.findById(id));
+        model.addAttribute("groups", groupService.findById(id));
         return "group/findById";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("groups", groupRepository.findById(id));
+        model.addAttribute("groups", groupService.findById(id));
         return "group/edit";
     }
 
     @PatchMapping("{id}")
     public String updateGroup(@ModelAttribute("groups") Group group,
                                @PathVariable("id") Long id) {
-        groupRepository.updateGroup(id, group);
+        groupService.updateGroup(id, group);
         return "redirect:/group";
     }
 
     @DeleteMapping("{id}")
     public String delete(@PathVariable("id") Long id) {
-        groupRepository.deleteById(id);
+        groupService.deleteById(id);
         return "redirect:/group";
     }
 }

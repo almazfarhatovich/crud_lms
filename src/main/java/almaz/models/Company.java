@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,11 +29,14 @@ public class Company {
     private Long id;
     private String companyName;
     private String locatedCountry;
-    @OneToMany(cascade = CascadeType.PERSIST,orphanRemoval = true)
-    private List<Course> courses;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "company",orphanRemoval = true)
+    private List<Course> courses = new ArrayList<>();
 
     public Company(String companyName, String locatedCountry) {
         this.companyName = companyName;
         this.locatedCountry = locatedCountry;
+    }
+    public void setCourse(Course course){
+        this.courses.add(course);
     }
 }

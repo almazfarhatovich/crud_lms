@@ -17,6 +17,13 @@
     <br/>
     <label for="d">Enter format</label>
     <input type="text" th:field="*{studyFormat}" id="d"/>
+    <label >Choose a group</label>
+    <select th:field="*{groupId}">
+        <option th:each="group:${groupList}"
+                th:value="${group.getId()}"
+                th:text="${group.groupName}">
+        </option>
+    </select>
     <br/>
     <input type="submit" value="SAVE"/>
 </form>

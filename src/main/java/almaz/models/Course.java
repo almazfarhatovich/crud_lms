@@ -29,17 +29,15 @@ public class Course {
     private Long id;
     private String courseName;
     private int duration;
-    @ManyToMany
+    @ManyToMany(mappedBy = "courses")
     private List<Group> groups;
-    @OneToMany
-    private List<Teacher> teachers;
-    @OneToOne
+    @OneToOne(mappedBy = "course")
+    private Teacher teacher;
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Company company;
-
-    public Course(String courseName,
-                  int duration) {
-        this.courseName = courseName;
-        this.duration = duration;
-
+    @Transient
+    private Long companyId;
+    public Course(Company company) {
+      this.company = company;
     }
 }

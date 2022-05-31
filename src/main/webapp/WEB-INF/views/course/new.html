@@ -11,6 +11,13 @@
     <br/>
     <label for="dur">Enter duration</label>
     <input type="number" th:field="*{duration}" id="dur"/>
+    <label >Choose a company</label>
+    <select th:field="*{companyId}">
+        <option th:each="company:${companyList}"
+                th:value="${company.getId()}"
+                th:text="${company.companyName}">
+        </option>
+    </select>
     <br/>
     <input type="submit" value="CREATE"/>
 </form>

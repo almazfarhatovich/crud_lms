@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,11 +35,17 @@ public class Group {
     private Date dateOfFinish;
     @ManyToMany
     private List<Course> courses;
+    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Student> students = new ArrayList<>();
 
     public Group(String groupName, Date dateOfStart, Date dateOfFinish) {
         this.groupName = groupName;
         this.dateOfStart = dateOfStart;
         this.dateOfFinish = dateOfFinish;
+    }
+
+    public void setStudent(Student student) {
+        this.students.add(student);
     }
 
 }
