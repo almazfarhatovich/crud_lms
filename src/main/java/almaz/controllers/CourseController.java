@@ -42,15 +42,34 @@ public class CourseController {
     }
 
     @GetMapping("/new")
-    public String newCourse(@ModelAttribute("courses") Course course) {
-        return "course/new";
+    public String showStudentSavePage(@PathVariable Long courseId, Model model) {
+
+        model.addAttribute("courseId", courseId);
+        model.addAttribute("emptyStudent", new Course());
+
+        return "redirect:/course";
     }
 
     @PostMapping()
-    public String createCourse(@ModelAttribute("courses") Course course) {
-        courseService.saveCourse(course);
-        return "redirect:/course";
+    public String saveStudent(Course course,
+                              @PathVariable Long courseId) {
+
+        courseService.saveCourse(courseId, course);
+
+        return "redirect:/course" + courseId;
     }
+
+//    @GetMapping("/new")
+//    public String newCourse(Model model) {
+//        model.addAttribute("courses",new Course());
+//        return "course/new";
+//    }
+//
+//    @PostMapping()
+//    public String createCourse(Course course) {
+//        courseService.saveCourse(course,course.getCompanyId());
+//        return "redirect:/course";
+    //}
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {

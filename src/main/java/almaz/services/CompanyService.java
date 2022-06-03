@@ -11,10 +11,12 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final StudentRepository studentRepository;
 
+
     public CompanyService(CompanyRepository companyRepository, StudentRepository studentRepository) {
         this.companyRepository = companyRepository;
         this.studentRepository = studentRepository;
     }
+
 
     public void saveCompany(Company company) {
         companyRepository.saveCompany(company);

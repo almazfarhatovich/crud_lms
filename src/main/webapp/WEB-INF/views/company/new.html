@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add new company</title>
+    <title>Save new Company</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/company}" th:object="${companies}">
-    <label for="name">Enter companyName</label>
-    <input type="text" th:field="*{companyName}" id="name"/>
-    <br/>
-    <label for="age">Enter companyLocation</label>
-    <input type="text" th:field="*{locatedCountry}" id="age"/>
-    <br/>
-    <input type="submit" value="CREATE"/>
+<form action="#"
+      th:action="@{/company}"
+      method="post"
+      th:object="${companies}">
+
+    <label for="companyName">Company Name</label>
+    <input id="companyName" th:field="${companies.companyName}" placeholder="company_name">
+    <br><br>
+
+    <label for="locatedCountry">Country</label>
+    <input id="locatedCountry" th:field="${companies.locatedCountry}" placeholder="company_location">
+    <br><br>
+
+    <button type="submit">save company</button>
 </form>
+
+<div>
+    <a th:href="@{/company}">
+        <button>go back</button>
+    </a>
+</div>
+
+
 </body>
 </html>

@@ -15,14 +15,17 @@
     <label for="c">Enter email</label>
     <input type="email" th:field="*{email}" id="c"/>
     <br/>
-    <label for="d">Enter format</label>
-    <input type="text" th:field="*{studyFormat}" id="d"/>
+    <label>Enter format</label>
+    <input type="radio" value="ONLINE" th:field="*{studyFormat}" id="onlineFormat">
+    <label for="onlineFormat">online</label>
+    <input type="radio" value="OFFLINE" th:field="*{studyFormat}" id="offlineFormat">
+    <label for="offlineFormat">offline</label>
     <label >Choose a group</label>
-    <select th:field="*{groupId}">
+    <select th:field="*{group}">
         <option th:each="group:${groupList}"
                 th:value="${group.getId()}"
                 th:text="${group.groupName}">
-        </option>
+         </option>
     </select>
     <br/>
     <input type="submit" value="SAVE"/>

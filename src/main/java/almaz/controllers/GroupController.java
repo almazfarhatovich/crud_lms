@@ -23,8 +23,8 @@ public class GroupController {
     }
 
     @PostMapping()
-    public String createGroup(@ModelAttribute("groups") Group group) {
-        groupService.saveGroup(group);
+    public String createGroup(@ModelAttribute("groups") Group group,Long id) {
+        groupService.saveGroup(group, id);
         return "redirect:/group";
     }
     @GetMapping()

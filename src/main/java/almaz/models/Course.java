@@ -3,41 +3,50 @@ package almaz.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import static jakarta.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "courses")
-@NoArgsConstructor
-@Getter
-@Setter
+@Getter@Setter
 @ToString
-
-public class Course {
+public class Course implements Serializable {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "student_id_generator"
-    )
-    @SequenceGenerator(
-            name = "student_id_generator",
-            sequenceName = "student_id_seq",
-            allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "course_name", nullable = false)
     private String courseName;
+
     private int duration;
-    @ManyToMany(mappedBy = "courses")
-    private List<Group> groups;
-    @OneToOne(mappedBy = "course")
-    private Teacher teacher;
-    @ManyToOne(cascade = CascadeType.MERGE)
+
+    @ManyToOne(cascade = {MERGE, DETACH, REFRESH})
     private Company company;
-    @Transient
-    private Long companyId;
-    public Course(Company company) {
-      this.company = company;
+
+    @ManyToMany(mappedBy = "courses", cascade = {ALL})
+    private List<Group> groups = new ArrayList<>();
+
+    @OneToOne(mappedBy = "course", cascade = ALL)
+    private Teacher teacher;
+
+    public Course(String courseName, int duration, Company company, List<Group> groups, Teacher teacher) {
+        this.courseName = courseName;
+        this.duration = duration;
+        this.company = company;
+        this.groups = groups;
+        this.teacher = teacher;
+    }
+
+    public Course() {
+
+    }
+
+    public void addGroup(Group group) {
+        this.groups.add(group);
     }
 }
+

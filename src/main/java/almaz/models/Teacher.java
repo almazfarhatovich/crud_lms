@@ -1,36 +1,27 @@
 package almaz.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import static jakarta.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "teachers")
+@Getter@Setter
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@AllArgsConstructor
 public class Teacher {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "teacher_id_generator"
-    )
-    @SequenceGenerator(
-            name = "teacher_id_generator",
-            sequenceName = "teacher_id_seq",
-            allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
     private String email;
-    @OneToOne
+
+    @OneToOne(cascade = {MERGE, DETACH, REFRESH})
     private Course course;
-    public Teacher(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
 }

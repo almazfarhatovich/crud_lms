@@ -19,7 +19,9 @@ public class StudentService {
     }
 
 
-    public void saveStudent(Student student) {
+    public void saveStudent(Student student,Long id) {
+        Group group = groupRepository.findById(id);
+        group.addStudent(student);
         studentRepository.saveStudent(student);
     }
 

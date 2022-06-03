@@ -50,7 +50,7 @@ public class StudentController {
 
     @PostMapping()
     public String createStudent(@ModelAttribute("students") Student student) {
-        studentService.saveStudent(student);
+        studentService.saveStudent(student,student.getId());
         return "redirect:/student";
     }
 

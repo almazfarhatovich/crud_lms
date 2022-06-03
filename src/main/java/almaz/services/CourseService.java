@@ -4,6 +4,7 @@ import almaz.models.Company;
 import almaz.models.Course;
 import almaz.repositories.CompanyRepository;
 import almaz.repositories.CourseRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,12 @@ public class CourseService {
         this.courseRepository = courseRepository;
         this.companyRepository = companyRepository;
     }
+    @Transactional
+    public void saveCourse(Long courseId, Course course) {
+        Company company = companyRepository.findById(courseId);
+        company.setCourse(course);
+        course.setCompany(company);
 
-    public void saveCourse(Course course) {
         courseRepository.saveCourse(course);
     }
 
@@ -37,5 +42,6 @@ public class CourseService {
     public void deleteById(Long courseId) {
         courseRepository.deleteById(courseId);
     }
+
 
 }

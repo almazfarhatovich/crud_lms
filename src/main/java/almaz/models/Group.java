@@ -1,51 +1,40 @@
 package almaz.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
-
+import lombok.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "groups")
+@Getter@Setter
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@AllArgsConstructor
 public class Group {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "group_id_generator"
-    )
-    @SequenceGenerator(
-            name = "group_id_generator",
-            sequenceName = "group_id_seq",
-            allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "group_name", nullable = false)
     private String groupName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
+    @Column(name = "date_of_start", nullable = false)
     private Date dateOfStart;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
+    @Column(name = "date_of_finish", nullable = false)
     private Date dateOfFinish;
+
     @ManyToMany
-    private List<Course> courses;
-    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Course> courses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "group")
     private List<Student> students = new ArrayList<>();
 
-    public Group(String groupName, Date dateOfStart, Date dateOfFinish) {
-        this.groupName = groupName;
-        this.dateOfStart = dateOfStart;
-        this.dateOfFinish = dateOfFinish;
+    public void addCourse(Course course) {
+        this.courses.add(course);
     }
-
-    public void setStudent(Student student) {
+    public void addStudent(Student student) {
         this.students.add(student);
     }
-
 }
